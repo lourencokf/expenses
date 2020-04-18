@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models/transaction.dart';
+import 'package:intl/intl.dart';
 
 main() => runApp(ExpensesApp());
 
@@ -11,6 +12,9 @@ class ExpensesApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  final titleController = TextEditingController();
+  final valueController = TextEditingController();
+
   final _transactions = [
     Transaction(
       id: 't1',
@@ -32,7 +36,6 @@ class MyHomePage extends StatelessWidget {
         title: Text('Despesas Pessoais'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -57,7 +60,7 @@ class MyHomePage extends StatelessWidget {
                     width: 2,
                   )),
                   padding: EdgeInsets.all(10),
-                  child: Text(tr.value.toString(),
+                  child: Text('R\$ ${tr.value.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 10,
@@ -65,29 +68,58 @@ class MyHomePage extends StatelessWidget {
                       )),
                 ),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      child: Text(tr.title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10,
-                            color: Colors.purple,
-                          )),
+                    Text(
+                      tr.title,
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
-                    Container(
-                      child: Text(tr.date.toString()),
-                    )
+                    Text(DateFormat('d MMM y').format(tr.date),
+                        style: TextStyle(
+                          color: Colors.grey,
+                        )),
                   ],
                 )
               ]));
             }).toList(),
-          )
+          ),
+          Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: <Widget>[
+                    TextField(
+                      controller: titleController,
+                      decoration: InputDecoration(
+                        labelText: 'Título',
+                      ),
+                    ),
+                    TextField(
+                      controller: valueController,
+                      decoration: InputDecoration(
+                        labelText: 'Valor (R\$)',
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        FlatButton(
+                          textColor: Colors.purple,
+                          child: Text('Nova Transação'),
+                          onPressed: () {
+                            print(titleController.text);
+                            print(valueController.text);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ))
         ],
       ),
     );
   }
 }
-
-
