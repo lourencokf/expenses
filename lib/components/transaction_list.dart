@@ -42,7 +42,7 @@ class TransactionList extends StatelessWidget {
                   ),
                   child: ListTile(
                     leading: CircleAvatar(
-                      radius: 30,
+                      radius: 40,
                       child: FittedBox(
                         child: Text('R\$${tr.value}'),
                       ),

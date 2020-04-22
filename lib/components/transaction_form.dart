@@ -93,7 +93,7 @@ class _TransactionFormState extends State<TransactionForm> {
               children: <Widget>[
                 RaisedButton(
                     child: Text('Nova Transação'),
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).accentColor,
                     textColor: Theme.of(context).textTheme.button.color,
                     onPressed: _submitForm),
               ],
